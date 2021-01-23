@@ -15,7 +15,7 @@ async def update_password(host, old_pw, new_pw):
     elif resp == 0:
         print(f"adding host fingerprint for {host}...")
         connection.sendline("yes")
-        await conn.expect(["password:"], async_=True)
+        await connection.expect(["password:"], async_=True)
         connection.sendline(old_pw)
     elif resp == 1:
         connection.sendline(old_pw)
@@ -62,7 +62,9 @@ async def main():
     for i, r in enumerate(results):
         if r is not None:
             print(f"problem processing host {all_hosts[i]}")
-            print(r.value)
+            print(r)
+            if hasattr(r, 'value'):
+                print(r.value)
     print("Finished on all hosts")
 
 if __name__ == "__main__":
