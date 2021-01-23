@@ -1,5 +1,3 @@
 ---
-ansible_password: ubuntu
-old_ssh_pass: ubuntu
-ssh_pass: pappous
+ansible_password: oMKVrzZB5acvCQCsZUXk
 ansible_user: ubuntu

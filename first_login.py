@@ -58,8 +58,12 @@ async def main():
         raise Exception("need to provide hosts")
     print(f"executing for hosts: {all_hosts}")
     tasks = [update_password(host, args.old_pw, args.new_pw) for host in all_hosts]
-    await asyncio.gather(*tasks)
-    print("Updated passwords on all hosts")
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    for i, r in enumerate(results):
+        if r is not None:
+            print(f"problem processing host {all_hosts[i]}")
+            print(r.value)
+    print("Finished on all hosts")
 
 if __name__ == "__main__":
     asyncio.run(main())
