@@ -8,7 +8,7 @@ import asyncio
 async def update_password(host, old_pw, new_pw):
     print(f"Connecting to {host}...")
     connection = pexpect.spawn(f"ssh ubuntu@{host}", encoding="UTF-8")
-    resp = await connection.expect(["\(yes/no\)\?", "password:", pexpect.TIMEOUT], async_=True)
+    resp = await connection.expect(["yes/no", "password:", pexpect.TIMEOUT], async_=True)
     if resp == 2:
         print(f"Could not connect to host {host}")
         return
